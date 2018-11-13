@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="534.6771640826873" y="590.0">panel.TimeBar</node>
+    <node x="440.10494186046515" y="280.0">domain.CheckoutImpl</node>
+    <node x="634.4166666666666" y="170.0">domain.TimeController</node>
+    <node x="247.99999999999997" y="380.0">service.ShopController</node>
+    <node x="240.99999999999997" y="170.0">domain.Checkout</node>
+    <node x="746.4166666666666" y="280.0">panel.CheckoutHolder</node>
+    <node x="744.9166666666666" y="380.0">panel.CheckoutSection</node>
+    <node x="491.41666666666663" y="170.0">domain.ScannerImpl</node>
+    <node x="198.0" y="280.0">service.CheckoutController</node>
+    <node x="369.41666666666663" y="80.0">domain.Employe</node>
+    <node x="541.1666666666666" y="0.0">domain.Scanner</node>
+    <node x="757.7137919896642" y="670.0">panel.RightPanel</node>
+    <node x="416.67716408268734" y="670.0">panel.LeftPanel</node>
+    <node x="483.41666666666663" y="80.0">domain.GenericScanner</node>
+    <node x="232.7716085271319" y="80.0">domain.Customer</node>
+    <node x="0.0" y="170.0">service.CustomerPoolController</node>
+    <node x="477.5999999999999" y="480.0">panel.UIController</node>
+    <node x="487.3152777777776" y="770.0">panel.Application</node>
+    <node x="309.253003875969" y="0.0">domain.Person</node>
+    <node x="352.42716408268734" y="590.0">panel.AddCheckout</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="service.CheckoutController" target="domain.Checkout">
+      <point x="-38.0" y="-15.0" />
+      <point x="236.0" y="260.0" />
+      <point x="257.5" y="260.0" />
+      <point x="-33.0" y="15.0" />
+    </edge>
+    <edge source="domain.CheckoutImpl" target="domain.Customer">
+      <point x="-41.0" y="-15.0" />
+      <point x="460.60494186046515" y="250.0" />
+      <point x="351.85494186046515" y="250.0" />
+      <point x="351.85494186046515" y="150.0" />
+      <point x="307.7716085271319" y="150.0" />
+      <point x="25.0" y="15.0" />
+    </edge>
+    <edge source="service.ShopController" target="service.CheckoutController">
+      <point x="-14.222222222222285" y="-15.0" />
+      <point x="297.7777777777777" y="330.0" />
+      <point x="236.0" y="330.0" />
+      <point x="-38.0" y="15.0" />
+    </edge>
+    <edge source="panel.UIController" target="panel.TimeBar">
+      <point x="37.333333333333314" y="15.0" />
+      <point x="570.9333333333333" y="560.0" />
+      <point x="592.1771640826873" y="560.0" />
+      <point x="11.5" y="-15.0" />
+    </edge>
+    <edge source="panel.UIController" target="service.ShopController">
+      <point x="-49.0" y="-15.0" />
+      <point x="484.5999999999999" y="460.0" />
+      <point x="286.4" y="460.0" />
+      <point x="-25.600000000000023" y="15.0" />
+    </edge>
+    <edge source="domain.GenericScanner" target="domain.Scanner">
+      <point x="0.0" y="-15.0" />
+      <point x="548.4166666666666" y="60.0" />
+      <point x="563.6666666666666" y="60.0" />
+      <point x="-22.5" y="15.0" />
+    </edge>
+    <edge source="panel.LeftPanel" target="panel.AddCheckout">
+      <point x="-36.375" y="-15.0" />
+      <point x="428.80216408268734" y="650.0" />
+      <point x="382.67716408268734" y="650.0" />
+      <point x="-30.25" y="15.0" />
+    </edge>
+    <edge source="panel.CheckoutSection" target="panel.UIController">
+      <point x="-11.5" y="15.0" />
+      <point x="802.4166666666666" y="450.0" />
+      <point x="568.5999999999999" y="450.0" />
+      <point x="35.0" y="-15.0" />
+    </edge>
+    <edge source="service.CustomerPoolController" target="domain.Customer">
+      <point x="44.25" y="-15.0" />
+      <point x="132.75" y="140.0" />
+      <point x="257.7716085271319" y="140.0" />
+      <point x="-25.0" y="15.0" />
+    </edge>
+    <edge source="domain.CheckoutImpl" target="service.ShopController">
+      <point x="30.75" y="15.0" />
+      <point x="532.3549418604651" y="340.0" />
+      <point x="340.44444444444446" y="340.0" />
+      <point x="28.444444444444457" y="-15.0" />
+    </edge>
+    <edge source="domain.CheckoutImpl" target="domain.Checkout">
+      <point x="-54.66666666666663" y="-15.0" />
+      <point x="446.9382751937985" y="260.0" />
+      <point x="323.5" y="260.0" />
+      <point x="33.0" y="15.0" />
+    </edge>
+    <edge source="panel.LeftPanel" target="panel.UIController">
+      <point x="12.125" y="-15.0" />
+      <point x="477.30216408268734" y="650.0" />
+      <point x="483.92716408268734" y="650.0" />
+      <point x="483.92716408268734" y="550.0" />
+      <point x="508.71111111111105" y="550.0" />
+      <point x="-24.888888888888886" y="15.0" />
+    </edge>
+    <edge source="domain.CheckoutImpl" target="domain.Employe">
+      <point x="0.0" y="-15.0" />
+      <point x="501.60494186046515" y="220.0" />
+      <point x="456.66666666666663" y="220.0" />
+      <point x="456.66666666666663" y="150.0" />
+      <point x="439.91666666666663" y="150.0" />
+      <point x="23.5" y="15.0" />
+    </edge>
+    <edge source="panel.Application" target="panel.LeftPanel">
+      <point x="-27.25" y="-15.0" />
+      <point x="514.5652777777776" y="740.0" />
+      <point x="440.92716408268734" y="740.0" />
+      <point x="-24.25" y="15.0" />
+    </edge>
+    <edge source="panel.RightPanel" target="panel.TimeBar">
+      <point x="-39.375" y="-15.0" />
+      <point x="770.8387919896642" y="650.0" />
+      <point x="557.6771640826873" y="650.0" />
+      <point x="-23.0" y="15.0" />
+    </edge>
+    <edge source="domain.CheckoutImpl" target="domain.ScannerImpl">
+      <point x="13.666666666666629" y="-15.0" />
+      <point x="515.2716085271318" y="230.0" />
+      <point x="548.4166666666666" y="230.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="domain.Customer" target="domain.Person">
+      <point x="25.0" y="-15.0" />
+      <point x="307.7716085271319" y="60.0" />
+      <point x="340.753003875969" y="60.0" />
+      <point x="-10.5" y="15.0" />
+    </edge>
+    <edge source="domain.ScannerImpl" target="domain.GenericScanner">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="panel.UIController" target="panel.CheckoutSection">
+      <point x="7.0" y="-15.0" />
+      <point x="540.5999999999999" y="430.0" />
+      <point x="756.4166666666666" y="430.0" />
+      <point x="-57.5" y="15.0" />
+    </edge>
+    <edge source="panel.Application" target="panel.RightPanel">
+      <point x="45.416666666666686" y="-15.0" />
+      <point x="587.2319444444444" y="750.0" />
+      <point x="836.4637919896642" y="750.0" />
+      <point x="26.25" y="15.0" />
+    </edge>
+    <edge source="panel.RightPanel" target="panel.CheckoutSection">
+      <point x="39.375" y="-15.0" />
+      <point x="849.5887919896642" y="650.0" />
+      <point x="845.5887919896642" y="650.0" />
+      <point x="845.5887919896642" y="460.0" />
+      <point x="871.4166666666666" y="460.0" />
+      <point x="57.5" y="15.0" />
+    </edge>
+    <edge source="panel.Application" target="service.ShopController">
+      <point x="-45.416666666666686" y="-15.0" />
+      <point x="496.398611111111" y="750.0" />
+      <point x="205.72916666666652" y="750.0" />
+      <point x="205.72916666666652" y="460.0" />
+      <point x="260.79999999999995" y="460.0" />
+      <point x="-51.200000000000045" y="15.0" />
+    </edge>
+    <edge source="panel.AddCheckout" target="panel.UIController">
+      <point x="-30.25" y="-15.0" />
+      <point x="382.67716408268734" y="530.0" />
+      <point x="483.8222222222222" y="530.0" />
+      <point x="-49.77777777777777" y="15.0" />
+    </edge>
+    <edge source="panel.TimeBar" target="panel.UIController">
+      <point x="-34.5" y="-15.0" />
+      <point x="12.444444444444429" y="15.0" />
+    </edge>
+    <edge source="service.ShopController" target="domain.TimeController">
+      <point x="42.66666666666663" y="-15.0" />
+      <point x="354.66666666666663" y="350.0" />
+      <point x="724.9166666666666" y="350.0" />
+      <point x="724.9166666666666" y="260.0" />
+      <point x="714.4166666666666" y="260.0" />
+      <point x="16.0" y="15.0" />
+    </edge>
+    <edge source="domain.Employe" target="domain.Person">
+      <point x="23.5" y="-15.0" />
+      <point x="439.91666666666663" y="50.0" />
+      <point x="382.753003875969" y="50.0" />
+      <point x="31.5" y="15.0" />
+    </edge>
+    <edge source="panel.Application" target="panel.UIController">
+      <point x="9.083333333333343" y="-15.0" />
+      <point x="550.898611111111" y="720.0" />
+      <point x="524.1771640826873" y="720.0" />
+      <point x="524.1771640826873" y="570.0" />
+      <point x="533.5999999999999" y="570.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="domain.CheckoutImpl" target="domain.TimeController">
+      <point x="41.0" y="-15.0" />
+      <point x="542.6049418604651" y="250.0" />
+      <point x="650.4166666666666" y="250.0" />
+      <point x="-48.0" y="15.0" />
+    </edge>
+    <edge source="service.ShopController" target="service.CustomerPoolController">
+      <point x="-56.888888888888914" y="-15.0" />
+      <point x="255.11111111111106" y="360.0" />
+      <point x="83.0" y="360.0" />
+      <point x="83.0" y="260.0" />
+      <point x="44.25" y="260.0" />
+      <point x="-44.25" y="15.0" />
+    </edge>
+    <edge source="domain.Checkout" target="domain.Customer">
+      <point x="0.0" y="-15.0" />
+      <point x="8.333333333333371" y="15.0" />
+    </edge>
+    <edge source="service.ShopController" target="domain.Customer">
+      <point x="-28.444444444444457" y="-15.0" />
+      <point x="283.55555555555554" y="340.0" />
+      <point x="187.5" y="340.0" />
+      <point x="187.5" y="150.0" />
+      <point x="274.4382751937985" y="150.0" />
+      <point x="-8.333333333333371" y="15.0" />
+    </edge>
+    <edge source="service.ShopController" target="panel.UIController">
+      <point x="51.19999999999993" y="15.0" />
+      <point x="363.19999999999993" y="430.0" />
+      <point x="526.5999999999999" y="430.0" />
+      <point x="-7.0" y="-15.0" />
+    </edge>
+    <edge source="service.ShopController" target="domain.CheckoutImpl">
+      <point x="14.222222222222172" y="-15.0" />
+      <point x="326.2222222222222" y="330.0" />
+      <point x="470.85494186046515" y="330.0" />
+      <point x="-30.75" y="15.0" />
+    </edge>
+    <edge source="domain.CheckoutImpl" target="domain.Scanner">
+      <point x="27.33333333333337" y="-15.0" />
+      <point x="528.9382751937985" y="240.0" />
+      <point x="623.9166666666666" y="240.0" />
+      <point x="623.9166666666666" y="60.0" />
+      <point x="608.6666666666666" y="60.0" />
+      <point x="22.5" y="15.0" />
+    </edge>
+    <edge source="panel.CheckoutSection" target="panel.CheckoutHolder">
+      <point x="-46.0" y="-15.0" />
+      <point x="-45.0" y="15.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="278.5" y="375.5" />
+  <SelectedNodes>
+    <node>panel.TimeBar</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

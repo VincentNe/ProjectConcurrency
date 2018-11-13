@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="260.1589285714286" y="257.0">domain.CheckoutImpl</node>
+    <node x="106.65892857142859" y="357.0">service.ShopController</node>
+    <node x="466.2839285714286" y="158.0">domain.Checkout</node>
+    <node x="314.9089285714286" y="158.0">domain.ScannerImpl</node>
+    <node x="466.3089285714286" y="257.0">service.CheckoutController</node>
+    <node x="200.9089285714286" y="158.0">domain.Employe</node>
+    <node x="368.75892857142856" y="0.0">domain.Scanner</node>
+    <node x="306.9089285714286" y="79.0">domain.GenericScanner</node>
+    <node x="31.525000000000034" y="158.0">domain.Customer</node>
+    <node x="10.5" y="257.0">service.CustomerPoolController</node>
+    <node x="98.02500000000003" y="79.0">domain.Person</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="domain.ScannerImpl" target="domain.GenericScanner">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="service.CheckoutController" target="domain.Checkout">
+      <point x="38.0" y="-14.5" />
+      <point x="580.3089285714286" y="237.0" />
+      <point x="548.7839285714285" y="237.0" />
+      <point x="33.0" y="14.5" />
+    </edge>
+    <edge source="domain.CheckoutImpl" target="domain.Customer">
+      <point x="-51.25" y="-14.5" />
+      <point x="270.4089285714286" y="227.0" />
+      <point x="119.02500000000003" y="227.0" />
+      <point x="37.5" y="14.5" />
+    </edge>
+    <edge source="service.ShopController" target="service.CheckoutController">
+      <point x="25.600000000000023" y="-14.5" />
+      <point x="175.2589285714286" y="306.0" />
+      <point x="504.3089285714286" y="306.0" />
+      <point x="-38.0" y="14.5" />
+    </edge>
+    <edge source="domain.GenericScanner" target="domain.Scanner">
+      <point x="0.0" y="-14.5" />
+      <point x="371.9089285714286" y="54.0" />
+      <point x="391.25892857142856" y="54.0" />
+      <point x="-22.5" y="14.5" />
+    </edge>
+    <edge source="domain.Employe" target="domain.Person">
+      <point x="0.0" y="-14.5" />
+      <point x="247.9089285714286" y="133.0" />
+      <point x="161.02500000000003" y="133.0" />
+      <point x="21.0" y="14.5" />
+    </edge>
+    <edge source="service.CustomerPoolController" target="domain.Customer">
+      <point x="44.25" y="-14.5" />
+      <point x="143.25" y="237.0" />
+      <point x="94.02500000000003" y="237.0" />
+      <point x="12.5" y="14.5" />
+    </edge>
+    <edge source="domain.CheckoutImpl" target="domain.Checkout">
+      <point x="51.25" y="-14.5" />
+      <point x="372.9089285714286" y="237.0" />
+      <point x="482.7839285714286" y="237.0" />
+      <point x="-33.0" y="14.5" />
+    </edge>
+    <edge source="domain.CheckoutImpl" target="domain.Employe">
+      <point x="-30.75" y="-14.5" />
+      <point x="290.9089285714286" y="217.0" />
+      <point x="224.4089285714286" y="217.0" />
+      <point x="-23.5" y="14.5" />
+    </edge>
+    <edge source="service.ShopController" target="service.CustomerPoolController">
+      <point x="-25.600000000000023" y="-14.5" />
+      <point x="124.05892857142857" y="306.0" />
+      <point x="54.75" y="306.0" />
+      <point x="-44.25" y="14.5" />
+    </edge>
+    <edge source="domain.CheckoutImpl" target="domain.ScannerImpl">
+      <point x="10.25" y="-14.5" />
+      <point x="331.9089285714286" y="217.0" />
+      <point x="371.9089285714286" y="217.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="service.ShopController" target="domain.Customer">
+      <point x="-51.19999999999999" y="-14.5" />
+      <point x="98.4589285714286" y="316.0" />
+      <point x="0.0" y="316.0" />
+      <point x="0.0" y="237.0" />
+      <point x="44.025000000000034" y="237.0" />
+      <point x="-37.5" y="14.5" />
+    </edge>
+    <edge source="domain.Customer" target="domain.Person">
+      <point x="0.0" y="-14.5" />
+      <point x="81.52500000000003" y="133.0" />
+      <point x="119.02500000000003" y="133.0" />
+      <point x="-21.0" y="14.5" />
+    </edge>
+    <edge source="domain.CheckoutImpl" target="domain.Scanner">
+      <point x="30.75" y="-14.5" />
+      <point x="352.4089285714286" y="227.0" />
+      <point x="455.7839285714286" y="227.0" />
+      <point x="455.7839285714286" y="54.0" />
+      <point x="436.25892857142856" y="54.0" />
+      <point x="22.5" y="14.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="291.0" y="0.0" />
+  <SelectedNodes>
+    <node>service.ShopController</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
