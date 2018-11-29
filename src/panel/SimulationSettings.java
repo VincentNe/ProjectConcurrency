@@ -31,7 +31,16 @@ public class SimulationSettings extends JComponent {
         setSettingsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (inputMaxCustomerLoad.getValue() != null || inputMeanSpawn.getValue() != null || inputMinCustomerLoad.getValue() != null || inputVarianceSpawn.getValue() != null) {
+                if (inputMaxCustomerLoad.getValue() != null && inputMeanSpawn.getValue() != null && inputMinCustomerLoad.getValue() != null && inputVarianceSpawn.getValue() != null) {
+                    int inputMinCustomerLoad = getInputMinCustomerLoad();
+                    int inputMaxCustomerLoad = getInputMaxCustomerLoad();
+                    double mean = getInputMeanSpawn();
+                    double inputVarianceSpawn = getInputVarianceSpawn();
+                    if (inputMinCustomerLoad > inputMaxCustomerLoad) return;
+                    if (inputMinCustomerLoad <= 0 || inputMinCustomerLoad >= 100) return;
+                    if (inputMaxCustomerLoad <= 1 || inputMaxCustomerLoad > 100) return;
+                    if (mean <= 0 || mean > 500) return;
+                    if (mean - inputVarianceSpawn < 0) return;
                     lblMinProd.setText(String.valueOf(getInputMinCustomerLoad()));
                     lblMaxProd.setText(String.valueOf(getInputMaxCustomerLoad()));
                     lblMeanSpawn.setText(String.valueOf(getInputMeanSpawn()));
@@ -68,7 +77,7 @@ public class SimulationSettings extends JComponent {
         NumberFormatter formatter = new NumberFormatter(format);
         formatter.setValueClass(Integer.class);
         formatter.setMinimum(0);
-        formatter.setMaximum(Integer.MAX_VALUE);
+        formatter.setMaximum(999);
         formatter.setAllowsInvalid(false);
         // If you want the value to be committed on each keystroke instead of focus lost
         formatter.setCommitsOnValidEdit(true);
@@ -95,15 +104,15 @@ public class SimulationSettings extends JComponent {
         userSettings.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(9, 2, new Insets(0, 0, 0, 0), -1, -1));
         userSettings.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(-14849349)), "Settings", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, this.$$$getFont$$$(null, Font.BOLD, 14, userSettings.getFont()), new Color(-14849349)));
         final JLabel label1 = new JLabel();
-        label1.setText("Max no products");
+        label1.setText("Max no products (2-100)");
         userSettings.add(label1, new com.intellij.uiDesigner.core.GridConstraints(2, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JLabel label2 = new JLabel();
-        label2.setText("Min no. products");
+        label2.setText("Min no. products (1-99)");
         userSettings.add(label2, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(334, 16), null, 0, false));
         userSettings.add(inputMinCustomerLoad, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 2, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(300, -1), null, 0, false));
         userSettings.add(inputMaxCustomerLoad, new com.intellij.uiDesigner.core.GridConstraints(3, 0, 1, 2, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         final JLabel label3 = new JLabel();
-        label3.setText("Mean spawn customer");
+        label3.setText("Mean spawn customer per minute (1-500)");
         userSettings.add(label3, new com.intellij.uiDesigner.core.GridConstraints(4, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JLabel label4 = new JLabel();
         label4.setText("Variance spawn customer");

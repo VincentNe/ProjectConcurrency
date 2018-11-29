@@ -25,7 +25,8 @@ public class AddBulk {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (Inputbulk.getText() != null) {
-                    uiController.addBulk(Integer.valueOf(Inputbulk.getText()));
+                    int bulk = Integer.valueOf(Inputbulk.getText());
+                    uiController.addBulk(bulk);
                 }
             }
         });
@@ -35,8 +36,8 @@ public class AddBulk {
         NumberFormat format = NumberFormat.getInstance();
         NumberFormatter formatter = new NumberFormatter(format);
         formatter.setValueClass(Integer.class);
-        formatter.setMinimum(0);
-        formatter.setMaximum(Integer.MAX_VALUE);
+        formatter.setMinimum(1);
+        formatter.setMaximum(100);
         formatter.setAllowsInvalid(false);
         // If you want the value to be committed on each keystroke instead of focus lost
         formatter.setCommitsOnValidEdit(true);
@@ -53,13 +54,16 @@ public class AddBulk {
     private void $$$setupUI$$$() {
         createUIComponents();
         AddBulk = new JPanel();
-        AddBulk.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(2, 1, new Insets(0, 0, 0, 0), -1, -1));
+        AddBulk.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(2, 2, new Insets(0, 0, 0, 0), -1, -1));
         AddBulk.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(-14849349)), "Add Bulk", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, this.$$$getFont$$$(null, Font.BOLD, 14, AddBulk.getFont()), new Color(-14849349)));
         Inputbulk.setText("");
-        AddBulk.add(Inputbulk, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        AddBulk.add(Inputbulk, new com.intellij.uiDesigner.core.GridConstraints(0, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         addBulkButton = new JButton();
         addBulkButton.setText("Add Bulk");
-        AddBulk.add(addBulkButton, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        AddBulk.add(addBulkButton, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 2, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final JLabel label1 = new JLabel();
+        label1.setText("Customer Count");
+        AddBulk.add(label1, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**

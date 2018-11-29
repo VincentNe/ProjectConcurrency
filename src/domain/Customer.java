@@ -2,8 +2,6 @@ package domain;
 
 import service.CheckoutController;
 
-import java.util.Objects;
-
 public class Customer   implements  Runnable{
     private int itemCount;
     private String name;
@@ -45,9 +43,6 @@ public class Customer   implements  Runnable{
         leftStore = true;
     }
 
-    public synchronized boolean isWaiting(){
-        return waiting;
-    }
     @Override
     public void run() {
         //ADD customer to Stats
