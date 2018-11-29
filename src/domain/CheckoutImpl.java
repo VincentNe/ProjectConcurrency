@@ -4,11 +4,11 @@ package domain;
 import service.ShopController;
 
 import java.util.ArrayDeque;
+import java.util.Iterator;
 import java.util.Queue;
 
 public class CheckoutImpl implements Checkout {
     private Scanner scanner;
-    private Employe employe;
     private Queue<Customer> customerQueue;
     private boolean isRunning;
     private boolean isClosed;
@@ -26,7 +26,6 @@ public class CheckoutImpl implements Checkout {
         this.checkoutLabel  = checkoutLabel;
         isRunning = true;
         isClosed= true;
-        employe = new Employe("ERIC");
         scanner = new ScannerImpl(scanDelay);
 
         customerQueue = new ArrayDeque<>();
@@ -34,19 +33,26 @@ public class CheckoutImpl implements Checkout {
         this.lowestCustomerThroughput = lowestCustomerThroughPut;
         this.highestCustomerThroughPut = highestCustomerThroughPut;
     }
+
     public String getName(){
         return checkoutLabel;
     }
 
     public synchronized void addCustomer(Customer customer){
-        simulationStatistics.customerToCheckout();
-        customer.setStartWaitingTime(timeController.getRunningTimeInSeconds());
+            simulationStatistics.customerToCheckout(customer.getName());
+            customer.setStartWaitingTime(timeController.getRunningTimeInSeconds());
+
         customerQueue.add(customer);
         // Notify Controller
         ShopController.shopControllerInstance().updateCheckoutQueueSizeUI(checkoutLabel,customerQueue.size());
     }
+    public synchronized  void addCustomerChangedCheckout(Customer customer){
+        customerQueue.add(customer);
+    }
     private synchronized Customer getFirstinQueueCustomer(){
-        return customerQueue.remove();
+        Customer c = customerQueue.remove();
+        c.stopWaiting();
+        return  c;
     }
     public int getQueueSize(){
         return customerQueue.size();
@@ -61,6 +67,42 @@ public class CheckoutImpl implements Checkout {
         isClosed = true;
     }
     public void openCheckout(){isClosed = false;}
+
+    @Override
+    public synchronized int[] getCustomerPosition(String name) {
+        Iterator<Customer> itr = customerQueue.iterator();
+        int[] result = new int[2];
+        result[0] = customerQueue.size();
+
+        int i= 1;
+        while (itr.hasNext()){
+            Customer customer = itr.next();
+            if(customer.getName().equals(name)){
+                result[1] = i; return  result;
+            };
+
+            i++;
+        }
+        return null;
+    }
+
+    @Override
+    public boolean removeCustomer(String name) {
+        Iterator<Customer> itr = customerQueue.iterator();
+        while (itr.hasNext()){
+            Customer customer = itr.next();
+            if(customer.getName().equals(name)){
+                return customerQueue.remove(customer);
+            };
+        }
+        return  false;
+    }
+
+    @Override
+    public void stopRunning() {
+        isRunning = false;
+    }
+
     public boolean isClosed(){return  isClosed;}
 
     private long checkoutOpenTime = -1;
@@ -94,13 +136,13 @@ public class CheckoutImpl implements Checkout {
                 }
                 Customer c = getFirstinQueueCustomer();
 
+                simulationStatistics.customerStartScanning(c.getName());
                 ShopController.shopControllerInstance().updateCheckoutQueueSizeUI(checkoutLabel,customerQueue.size());
                 for (int i = 0; i < c.getItemCount(); i++) {
                     System.out.println("Checkout: " +getName() +" scanned item from Customer: " + c.getName());
                     //update process bar
                     ShopController.shopControllerInstance().updateCheckoutScanningProcess(checkoutLabel, i+1,c.getItemCount());
                     try {
-                        //TODO BASE SCAN SPEED ON EMPLOYE
                         long scanDelay = (new Double(Math.random()*4000)).longValue() + scanner.getScanDelay();
                         Thread.sleep(scanDelay);
 
@@ -108,12 +150,14 @@ public class CheckoutImpl implements Checkout {
                         e.printStackTrace();
                     }
                 }
+                c.leftStore();
+                simulationStatistics.customerIsProcessed(c.getName(),getName());
                 //reset process bar
                 ShopController.shopControllerInstance().updateCheckoutScanningProcess(checkoutLabel, 0,10);
 
                 System.out.println("Checkout: "+ getName() + " finished with customer: " + c.getName());
 
-                ShopController.shopControllerInstance().addCustomerStatistics(timeController.getRunningTimeInSeconds() - c.getStartWaitingTime(),c.getItemCount());
+                simulationStatistics.addCustomerStatistics(timeController.getRunningTimeInSeconds() - c.getStartWaitingTime(),c.getItemCount());
 
                 ShopController.shopControllerInstance().updateCheckoutQueueSizeUI(checkoutLabel,customerQueue.size());
             }
@@ -129,7 +173,6 @@ public class CheckoutImpl implements Checkout {
             //only update statistics if checkout is open
             if(updateStatistics){
                 totalOpenTime = timeController.getRunningTimeInMiliseconds() - checkoutOpenTime;
-                System.out.println("totalopentime: "+ totalOpenTime + "   TotalNotUtilizedTime: " + totalNotUtilizedTime);
                 simulationStatistics.addCheckoutStatistics(checkoutLabel,totalOpenTime,totalNotUtilizedTime);
             }
             try {
@@ -140,5 +183,6 @@ public class CheckoutImpl implements Checkout {
 
 
         }
+        System.out.println("Checkout done because shop is closed");
     }
 }

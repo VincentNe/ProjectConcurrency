@@ -9,25 +9,53 @@ public class UIController  {
     private static UIController instance;
     private CheckoutSection checkoutSection;
     private TimeBar timeBar;
+    private LeftPanel leftPanel;
     private ShopController shopController;
     private SimulationSettings simulationSettings;
     private GeneralStats generalStats;
+    private boolean settingsSet = false;
+
+    public void saveSimulation() {
+        if(state ==  SimulationStates.finished){
+            shopController.saveSimulation();
+        }
+    }
+
+    public void addLeftPanel(LeftPanel leftPanel) {
+        this.leftPanel = leftPanel;
+    }
+
+    private enum SimulationStates {not_running,running,stopped,finished}
+    private SimulationStates state;
 
     private UIController(){
         shopController = ShopController.shopControllerInstance();
+        state = SimulationStates.not_running;
     }
 
     public static synchronized UIController UIControllerinstance(){
         if(instance==null) instance = new UIController();
         return  instance;
     }
+
+    public void addBulk(int valueOf) {
+        if(state == SimulationStates.running) {
+            shopController.addBulk(valueOf);
+        }
+    }
+
     public void addCheckoutSection(CheckoutSection checkoutSection){
         this.checkoutSection = checkoutSection;
     }
 
-    public void addCheckout(String UID, int scannerDelay){
-        shopController.addCheckout(UID,scannerDelay);
-        checkoutSection.addCheckout(UID);
+    public boolean addCheckout(String UID, int scannerDelay){
+        System.out.println(shopController.IsCheckoutNameAvailable(UID));
+        if(shopController.IsCheckoutNameAvailable(UID)) {
+            shopController.addCheckout(UID, scannerDelay);
+            checkoutSection.addCheckout(UID);
+            return true;
+        }
+        return false;
     }
 
     public void addTimerBar(TimeBar timeBar) {
@@ -37,17 +65,19 @@ public class UIController  {
     public void addGeneralStats(GeneralStats generalStats){this.generalStats = generalStats;}
 
     public void startTimer() {
-        simulationSettings.setSettings();
-        timeBar.startTimer();
-        shopController.startTime();
+        if(settingsSet) {
+            leftPanel.simulationStarted();
+            state = SimulationStates.running;
+            timeBar.startTimer();
+            shopController.startTime();
+        }
     }
 
     public void setSimulationSettings(int minCustomerLoad, int maxCustomerLoad, double customerSpawnMean, double customerSpawnVariance ){
+        settingsSet = true;
         shopController.setSettings(minCustomerLoad,maxCustomerLoad, customerSpawnMean,customerSpawnVariance);
     }
-    public void stopTimer(){
-        timeBar.stopTimer();
-    }
+
     public long getTime(){
         return shopController.getTime();
     }
@@ -71,8 +101,8 @@ public class UIController  {
         //TODO forward customer stats to UI
     }
 
-    public void updateGeneralStats(int totalCustomersCurrentlyInShop, int totalCustomersInShop, int customerCount, long customerTotalWaitingTimeInSeconds, long customerAvgWaitingTimeInSeconds, int totalProducts, int totalProductsPickedUp, int avgProductsPerTroley) {
-        generalStats.updateGeneralStats(totalCustomersCurrentlyInShop,totalCustomersInShop,customerCount,customerTotalWaitingTimeInSeconds,customerAvgWaitingTimeInSeconds,totalProducts,totalProductsPickedUp,avgProductsPerTroley);
+    public void updateGeneralStats(int totalCustomersCurrentlyInShop, int totalCustomersInShop, int customerCount, long customerTotalWaitingTimeInSeconds, long customerAvgWaitingTimeInSeconds, int totalProducts, int totalProductsPickedUp, int avgProductsPerTroley,int customersLeftShop) {
+        generalStats.updateGeneralStats(totalCustomersCurrentlyInShop,totalCustomersInShop,customerCount,customerTotalWaitingTimeInSeconds,customerAvgWaitingTimeInSeconds,totalProducts,totalProductsPickedUp,avgProductsPerTroley,customersLeftShop);
     }
 
     public void updateCheckoutScanningProcess(String checkoutLabel, int currentItem, int totalCustomerItems) {
@@ -85,5 +115,15 @@ public class UIController  {
 
     public void openCheckout(String checkoutName) {
         shopController.openCheckout(checkoutName);
+    }
+
+    public void closeShop() {
+        shopController.closeShop();
+        state = SimulationStates.stopped;
+    }
+    public void shopIsFinished() {
+        state = SimulationStates.finished;
+        timeBar.stopTimer();
+        leftPanel.simulationIsDone();
     }
 }

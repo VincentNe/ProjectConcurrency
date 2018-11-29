@@ -23,7 +23,9 @@ public class AddCheckout extends JComponent {
         button1 = new JButton();
         button1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                uiController.addCheckout(textField1.getText(), Integer.valueOf(scannerDelayInput.getText()));
+                if (textField1.getText() != null || !textField1.getText().trim().isEmpty()) {
+                    uiController.addCheckout(textField1.getText(), Integer.valueOf(scannerDelayInput.getText()));
+                }
             }
         });
     }

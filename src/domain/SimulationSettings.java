@@ -22,36 +22,36 @@ public class SimulationSettings {
 
     }
 
-    public double getMean() {
+    public synchronized double getMean() {
         return mean;
     }
 
-    public double getVariance() {
+    public synchronized double getVariance() {
         return variance;
     }
 
 
-    public int getMinCustomerLoad() {
+    public synchronized int getMinCustomerLoad() {
         return minCustomerLoad;
     }
 
-    public int getMaxCustomerLoad() {
+    public synchronized int getMaxCustomerLoad() {
         return maxCustomerLoad;
     }
 
-    public double getMinProcessTime() {
+    public synchronized double getMinProcessTime() {
         return minProcessTime;
     }
 
-    public double getMaxProcessTime() {
+    public synchronized double getMaxProcessTime() {
         return maxProcessTime;
     }
 
-    public double getMinShopTime() {
+    public synchronized double getMinShopTime() {
         return minShopTime;
     }
 
-    public double getMaxShopTime() {
+    public synchronized double getMaxShopTime() {
         return maxShopTime;
     }
 
@@ -67,4 +67,19 @@ public class SimulationSettings {
                 '}';
     }
 
+    public synchronized void setMinCustomerLoad(int minCustomerLoad) {
+        this.minCustomerLoad = minCustomerLoad;
+    }
+
+    public synchronized void setMaxCustomerSettings(int maxCustomerLoad) {
+        this.maxCustomerLoad = maxCustomerLoad;
+    }
+
+    public synchronized   void setCustomerSpawnMean(double customerSpawnMean) {
+        this.mean = customerSpawnMean;
+    }
+
+    public synchronized void setCustomerSpawnVariance(double customerSpawnVariance) {
+        this.variance = customerSpawnVariance;
+    }
 }

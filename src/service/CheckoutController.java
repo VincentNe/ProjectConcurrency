@@ -18,6 +18,19 @@ public class CheckoutController {
         checkoutsRunning = false;
     }
 
+    public int getMinQueueSize() {
+        int checkoutQueueSize = Integer.MAX_VALUE;
+        synchronized(checkouts) {
+            for (Checkout checkout : checkouts.values()) {
+                if(!checkout.isClosed()) {
+                    if (checkout.getQueueSize() <= checkoutQueueSize) {
+                        checkoutQueueSize = checkout.getQueueSize();
+                    }
+                }
+            }
+        }
+        return checkoutQueueSize;
+    }
 
 
     public void addCheckout(String UID,Checkout checkout){
@@ -60,5 +73,24 @@ public class CheckoutController {
 
     public synchronized void closeCheckout(String checkoutName) {
         checkouts.get(checkoutName).closeCheckout();
+    }
+
+    public boolean IsCheckoutNameAvailable(String uid) {
+        return !checkouts.containsKey(uid);
+    }
+
+    public Checkout isBetterCheckoutAvailable(Checkout checkout) {
+        Checkout otherOption = determineCheckout();
+
+        if(checkout.getName().equals(otherOption.getName()))
+        return  null;
+
+        return otherOption;
+    }
+
+    public void stopCheckouts() {
+        for (Checkout c: checkouts.values()) {
+            c.stopRunning();
+        }
     }
 }

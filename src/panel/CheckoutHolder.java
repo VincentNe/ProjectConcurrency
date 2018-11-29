@@ -4,6 +4,7 @@ import domain.CheckoutHelper;
 import javafx.scene.control.ProgressBar;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,9 +36,11 @@ public class CheckoutHolder extends JComponent {
                 if (openButton.getText().equals(openButtonText)) {
                     uiController.closeCheckout(LblName.getText());
                     openButton.setText(closeButtonText);
+                    CheckoutHoulder.setBackground(new Color(-881014));
                 } else {
                     uiController.openCheckout(LblName.getText());
                     openButton.setText(openButtonText);
+                    CheckoutHoulder.setBackground(new Color(-5049649));
 
                 }
 
@@ -80,8 +83,9 @@ public class CheckoutHolder extends JComponent {
     private void $$$setupUI$$$() {
         CheckoutHoulder = new JPanel();
         CheckoutHoulder.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(5, 2, new Insets(0, 0, 0, 0), -1, -1));
+        CheckoutHoulder.setBackground(new Color(-881014));
         CheckoutHoulder.setOpaque(true);
-        CheckoutHoulder.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), null));
+        CheckoutHoulder.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, new Color(-14849349)));
         progressBar1 = new JProgressBar();
         CheckoutHoulder.add(progressBar1, new com.intellij.uiDesigner.core.GridConstraints(3, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JLabel label1 = new JLabel();

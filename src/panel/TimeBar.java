@@ -12,7 +12,7 @@ public class TimeBar extends JComponent {
     private JLabel TimeLabel;
     private UIController uiController;
 
-
+    private Timer timer;
     public TimeBar() {
         uiController = UIController.UIControllerinstance();
         uiController.addTimerBar(this);
@@ -25,7 +25,7 @@ public class TimeBar extends JComponent {
     }
 
     public void startTimer() {
-        Timer timer = new Timer(1000, new ActionListener() {
+        timer = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setTimer(uiController.getTime());
@@ -38,6 +38,7 @@ public class TimeBar extends JComponent {
 
 
     public void stopTimer() {
+        timer.stop();
     }
 
     {

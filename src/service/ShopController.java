@@ -1,6 +1,7 @@
 package service;
 
 import domain.*;
+import org.omg.CORBA.WrongTransaction;
 import panel.UIController;
 
 import java.util.HashMap;
@@ -11,7 +12,7 @@ public class ShopController {
     private TimeController timeController;
     private SimulationSettings settings;
     private SimulationStatistics simulationStatistics;
-
+    private Spawner spawner;
 
 
     private UIController uiController;
@@ -28,7 +29,7 @@ public class ShopController {
         checkoutController= new CheckoutController();
         customers = new CustomerPoolController();
         timeController = new TimeController();
-        simulationStatistics = SimulationStatistics.getInstance();
+        simulationStatistics = SimulationStatistics.getInstance(timeController);
         simulationStatistics.setShopController(this);
 
     }
@@ -39,7 +40,13 @@ public class ShopController {
         customers.addCustomer(customer);
     }
     public void setSettings(int minCustomerLoad, int maxCustomerLoad,double customerSpawnMean, double customerSpawnVariance ){
-        settings = new SimulationSettings(minCustomerLoad,maxCustomerLoad,customerSpawnMean,customerSpawnVariance);
+       if(settings ==null) settings = new SimulationSettings(minCustomerLoad,maxCustomerLoad,customerSpawnMean,customerSpawnVariance);
+        else{
+            settings.setMinCustomerLoad(minCustomerLoad);
+            settings.setMaxCustomerSettings(maxCustomerLoad);
+            settings.setCustomerSpawnMean(customerSpawnMean);
+            settings.setCustomerSpawnVariance(customerSpawnVariance);
+        }
     }
     /**
      * Start the Simulation
@@ -48,13 +55,14 @@ public class ShopController {
 
         timeController.startTimer();
         startSimulation();
-
+        new WriteFile();
 
     }
 
     private void startSimulation() {
         checkoutController.startCheckouts();
-        Thread threadSpawner = new Thread(new Spawner(timeController,settings,checkoutController,simulationStatistics));
+        this.spawner = new Spawner(timeController,settings,checkoutController,simulationStatistics,this);
+        Thread threadSpawner = new Thread(spawner);
         threadSpawner.start();
     }
 
@@ -76,14 +84,7 @@ public class ShopController {
         uiController.updateCheckoutQueueSize(checkoutLabel,size);
     }
 
-
-
-
-    public void addCustomerStatistics(long l, int itemCount) {
-        simulationStatistics.addCustomerStatistics(l,itemCount);
-    }
-
-    public void addCheckoutStatistics(String checkoutLabel, long totalUpTime, long totalDownTime) {
+    public synchronized void addCheckoutStatistics(String checkoutLabel, long totalUpTime, long totalDownTime) {
         simulationStatistics.addCheckoutStatistics( checkoutLabel,totalUpTime,totalDownTime);
     }
     public void updateCustomerSimulationStats(long customerTotalWaitingTimeInSeconds, long customerAvgWaitingTimeInSeconds){
@@ -96,11 +97,11 @@ public class ShopController {
         uiController.updateProductSimulationStats(totalProducts,avgProductsPerTroley);
     }
 
-    public void updateGeneralStats(int totalCustomersCurrentlyInShop, int totalCustomersInShop, int customerCount, long customerTotalWaitingTimeInSeconds, long customerAvgWaitingTimeInSeconds, int totalProducts, int totalProductsPickedUp, int avgProductsPerTroley) {
-        uiController.updateGeneralStats(totalCustomersCurrentlyInShop,totalCustomersInShop,customerCount,customerTotalWaitingTimeInSeconds,customerAvgWaitingTimeInSeconds,totalProducts,totalProductsPickedUp,avgProductsPerTroley);
+    public void updateGeneralStats(int totalCustomersCurrentlyInShop, int totalCustomersInShop, int customerCount, long customerTotalWaitingTimeInSeconds, long customerAvgWaitingTimeInSeconds, int totalProducts, int totalProductsPickedUp, int avgProductsPerTroley,int customersLeftShop) {
+        uiController.updateGeneralStats(totalCustomersCurrentlyInShop,totalCustomersInShop,customerCount,customerTotalWaitingTimeInSeconds,customerAvgWaitingTimeInSeconds,totalProducts,totalProductsPickedUp,avgProductsPerTroley,customersLeftShop);
     }
 
-    public void updateCheckoutScanningProcess(String checkoutLabel, int currentItem, int totalCustomerItems) {
+    public synchronized void updateCheckoutScanningProcess(String checkoutLabel, int currentItem, int totalCustomerItems) {
         uiController.updateCheckoutScanningProcess(checkoutLabel,currentItem,totalCustomerItems);
     }
 
@@ -111,6 +112,29 @@ public class ShopController {
     public void openCheckout(String checkoutName) {
         checkoutController.openCheckout(checkoutName);
 
+    }
+
+    public boolean IsCheckoutNameAvailable(String uid) {
+        return checkoutController.IsCheckoutNameAvailable(uid);
+    }
+
+    public void addBulk(int valueOf) {
+        spawner.spawnBulk(valueOf);
+    }
+
+    public void closeShop() {
+        spawner.stopSpawning();
+    }
+
+    public void shopIsFinished() {
+        checkoutController.stopCheckouts();
+        timeController.stopTimer();
+        uiController.shopIsFinished();
+    }
+
+    public void saveSimulation() {
+        WriteFile file = new WriteFile();
+        file.saveSimulation(simulationStatistics);
     }
 }
 
